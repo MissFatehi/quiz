@@ -62,3 +62,7 @@ startBtn.addEventListener("click", () => {
   });
   console.log(filterCategory);
 });
+
+const newfilter = filterCategory.slice(
+  
+)
