@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@theme{
+    --color-bg-body:#5145BA;
+    --color-cat-bg-hover:#DAD5FD;
+    --color-cat-border:#BAB1FE;
+    --color-Btn-bg:rgb(81, 69, 186);
+    --color-Btn-bg-hover:rgb(64,55,149);
+    --color-activr-text:5145ba;
+    --color-answer-bg:#F3F1FF;
+    --color-wrong-answer-bg:#F8D7DA;
+     --color-wrong-answer-border:#FFD7DA;
+    --color-correct-answer-bg:#CCE4D1;
+    --color-correct-answer-border:#CCFFD1;
+    --font-primary: "Montserrat";
+    --font-Material:"Material";
+
+    
+
+}
+
+.activeCat{
+  background-color: #DAD5FD ;
+  color:#5145ba;
+}
+
+.activeNum{
+  background-color: #DAD5FD ;
+  color:#5145ba;
+}
