@@ -13,12 +13,24 @@ const answerListEl = ansersBoxEl.querySelectorAll("li");
 const nextBtn = document.getElementById("nextBtn");
 const resultEl = document.getElementById("result");
 const timerEl = document.getElementById("timer");
+const correctCountEl = document.getElementById("correctCount"); 
+const countAllEl = document.getElementById("countAll");
+const countEl = document.getElementById("count");
+const reStartGameEl = document.getElementById("reStartGame");
 let currentQuestion = 0;
-let intervalId= ""; // شناسه interval
-let correctAsw = 0;    // درست: بیرون از forEach
+let intervalId= ""; 
+let correctAsw = 0; 
 let time = 15;
-
 let myCategory = "programming";
+let selectedQuestions = [];
+let correctAnswerCount = 0 ;
+let countQuestion = 0 ;
+
+    catItems[0].classList.add("activeCat");
+    numberitem[0].classList.add("activeNum");
+
+
+  
 catItems.forEach((item) => {
   item.addEventListener("click", () => {
     myCategory = item.textContent.toLowerCase();
@@ -40,59 +52,99 @@ numberitem.forEach((item) => {
   });
 });
 
+ const startInterval = () => {
+        timerEl.textContent = "15 s";
+        time = 15;
+         intervalId = setInterval(() => {
+             --time;
+             if (time === 0) {
+            clearInterval(intervalId);
+            answerListEl.forEach((item)=>{item.style.pointerEvents = 'none';})
+            timerEl.parentElement.classList.add("timeout");
+            answerListEl[correctAsw].classList.add("correctAnser");
+            showNextBtn();
+          }
+           timerEl.innerHTML = `${time} s`;
+        }, 1000);};
+
+        const removeCOlors = ()=>{
+          timerEl.parentElement.classList.remove("timeout");
+          answerListEl[correctAsw]?.classList.remove("correctAnser");
+          answerListEl.forEach((wrong)=>{wrong.classList.remove("wrongAnswer")});
+        }
+
+        const showQuestion = (selectedQuestionList) => {
+            startInterval();
+            countEl.textContent= `${++countQuestion}`;
+             const current = selectedQuestionList[currentQuestion];
+             questionEl.textContent = current.question;
+             correctAsw = current.correctAnswer;
+             answerListEl.forEach((answer, index) => {
+             answer.style.pointerEvents = 'painted';
+             answer.textContent = current.options[index];
+              }); 
+            };
+
+ const selectAnswer = ()=>{
+  answerListEl.forEach((answer,index)=>{
+      answer.addEventListener("click",()=>{
+        clearInterval(intervalId);
+        answerListEl.forEach((item)=>{item.style.pointerEvents = 'none';})
+        if(index === Number(correctAsw) ){
+           correctAnswerCount++;
+          answer.classList.add("correctAnser");
+          console.log(correctAnswerCount);
+          showNextBtn();
+        }
+        else{
+            answer.classList.add("wrongAnswer");
+            answerListEl[correctAsw].classList.add("correctAnser");
+            showNextBtn();
+        }
+      })})
+ }
+selectAnswer ();
 
 
+   
 
 startBtn.addEventListener("click", () => {
   console.log(myCategory);
   console.log(count);
   sectionOneEl.style.display = "none";
   sectionTwoEl.style.display = "flex";
+  countAllEl.textContent = count;
+
 
   const categoryQuestions = questions.find(
-    (cat) => cat.category === myCategory,
-  ).questions;
+    (cat) => cat.category === myCategory)?.questions;
   console.log(categoryQuestions);
 
-  const selectedQuestions = categoryQuestions.slice(0, count);
+   selectedQuestions = categoryQuestions?.slice(0, count);
   console.log(selectedQuestions);
-  currentQuestion = 0;
+    showQuestion(selectedQuestions)
 
-  const startInterval = () => {
-        timerEl.textContent = `${time} s`;
-        const intervalId = setInterval(() => {
-             --time;
-             if (time <= 0) {
-            clearInterval(intervalId);
-            // timerEl.parentElement.style.backgroundColor = "red";
-            // answerListEl[correctAsw].style.background ="#CCE4D1";
-            // answerListEl[correctAsw].style.borderColor="#CCFFD1";
-          }
-           timerEl.textContent = `${time} s`;
-        }, 1000);};
+});
 
-  const showQuestion = (selectedQuestions) => {
-    const current = selectedQuestions[currentQuestion];
-    questionEl.textContent = current.question;
-    answerListEl.forEach((answer, index) => {
-      answer.textContent = current.options[index];
-      const correctAsw = current.correctAnswer;
-    });
-  startInterval();  };
-   
-    showQuestion(selectedQuestions);
+function showNextBtn (){
+  nextBtn.style.display = "flex";
+}
 
-
-  nextBtn.addEventListener("click", () => {
-        currentQuestion++;
+nextBtn.addEventListener("click", () => {
+  nextBtn.style.display= "none";
+       ++currentQuestion;
     if (currentQuestion < count) {
-          startInterval();
-
+      clearInterval(intervalId);
+      removeCOlors();
       showQuestion(selectedQuestions);
     } else {
       sectionTwoEl.style.display = "none";
       resultEl.classList.remove("hidden");
+      correctCountEl.textContent = `${correctAnswerCount}`;
+      countAllEl.textContent = count;
     }
   });
 
-});
+reStartGameEl.addEventListener("click",()=>{
+    location.reload();
+})

@@ -37,3 +37,18 @@
   background-color: #DAD5FD ;
   color:#5145ba;
 }
+
+.correctAnser{
+  background :#CCE4D1;
+  border-color:#CCFFD1;
+}
+
+.timeout{
+  background-color : red;
+}
+
+.wrongAnswer{
+  background :#f3a6b6;
+  border-color:#f08384;
+}
+

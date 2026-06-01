@@ -60,13 +60,15 @@
       </div>
 
       <div class="w-full flex justify-between px-6 py-5">
-        <p class="text-xl font-normal">1 of 10 question</p>
-        <button id="nextBtn" class=" flex justify-center items-center gap-2 px-4 py-2 bg-Btn-bg hover:bg-Btn-bg-hover rounded-md text-white font-medium">Next <i class="fas fa-arrow-right"></i></button>
+        <p class="text-xl font-normal"><span id="count">0</span> of <span id="countAll"></span> question</p>
+        <button id="nextBtn" class=" justify-center items-center gap-2 px-4 py-2 bg-Btn-bg hover:bg-Btn-bg-hover rounded-md text-white font-medium hidden">Next <i class="fas fa-arrow-right"></i></button>
       </div>
     </section>
 
-    <section id="result" class=" w-120 min-h-125  flex-col justify-start items-center border bg-white rounded-[10px] shadow-[2px_5px_10px_10px_rgba(0,0,0,0.1)] hidden" >
-
+    <section id="result" class=" w-120 h-70 flex flex-col justify-center items-center gap-6 text-center border bg-white rounded-[10px] shadow-[2px_5px_10px_10px_rgba(0,0,0,0.1)] hidden" >
+      <h1 class="text-2xl font-bold">Quiz Completed!</h1>     
+      <p class="text-xl font-medium" >You answered <span id="correctCount"></span> out of <span id="countAll"></span> questions correctly. Great effort!</p>
+       <button id="reStartGame" class="text-[16px] font-medium text-white bg-Btn-bg hover:bg-Btn-bg-hover rounded-md px-4 py-2">Try Again</button>
     </section>
 
     <script type="module" src="./src/questions.js"></script>
